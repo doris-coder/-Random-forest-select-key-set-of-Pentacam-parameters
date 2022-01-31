@@ -4,7 +4,7 @@ all=read.csv("analysis_file_new.csv")
 ####mean imputation(parallel)########
 colnames(all)[1:10]
 e=c()
-for (i in 2:812){
+for (i in 2:ncol(all)){
   a=sum(is.na(all[,i]))
   if (a>0){
     e=c(e,i)
@@ -12,12 +12,12 @@ for (i in 2:812){
 }
 #102
 all1=all
-for(i in 2:812){
+for(i in 2:ncol(all)){
   all1[is.na(all1[,i]), i]=round(mean(all1[,i], na.rm = TRUE),2)
 }
 
 e=c()
-for (i in 2:812){
+for (i in 2:ncol(all)){
   a=sum(is.na(all1[,i]))
   if (a>0){
     e=c(e,i)
@@ -32,7 +32,6 @@ train_ind <- sample(seq_len(nrow(all1)), size = smp_size)
 
 train <- all1[train_ind, ]
 test <- all1[-train_ind, ]
-
 
 
 ######importance ranking
